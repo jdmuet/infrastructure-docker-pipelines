@@ -1,15 +1,24 @@
-# Docker security homework
+# CVE-2022-0185 in Linux Kernel Can Allow Container Escape in Kubernetes/Docker
 
 
-For this homework, you should create a [report.md](report.md) file containing [Github-style markdown](https://guides.github.com/features/mastering-markdown/).
+Article Link: 0https://blog.aquasec.com/cve-2022-0185-linux-kernel-container-escape-in-kubernetes
 
-The contents of your [report.md](report.md) should be a report on an aspect of Docker security that you research.  You can look for Docker vulnerabilities in the news, read a Docker security article, a security related blog discussing Docker, etc.
+A new venerability was discovered recently that can allow users without privileges to escalate their 
+rights to root. This will primarily be an issue if you have the Linux capablity of CAP_SYS_ADMIN. This  
+reduces the risk but will mainly be an issue with Kubernetes cluster.
+The CAP_SYS_ADMIN would need to be added in Docker for this to be an issue, either specifically
+ or by using the --priviledged option when the container is started. However, users can still
+exploit this by using the unshare Linux command. The seccomp filter in Docker automatically blocks the
+unshare command but Kubernetes automatically disables that filters, so the issue can still apply.
 
-Your report should contain:
-* A link to the source material you are reporting on
-* A brief (1-2 paragraph) summary of the source material, in your own words
-* Key takeaways based on your reading
-* Answer the following:
-  + Was the security practice or vulnerability you researched particular to Docker, or not?
+How to prevent the vulnerability:
+Apply the Linux patch as soon as possible.
+Minimize the use of priviledged containers
+Ensure that a seccomp filter is in place that blocks the unshare call (default for Docker)
+
+ + Was the security practice or vulnerability you researched particular to Docker, or not?
+    This is related to Docker and Kubernetes
   + Was the security practice or vulnerability related to the core docker system itself, the extended environment (e.g. Docker Hub), or Docker images (a.k.a. the software inside the Docker image)? 
+    This effects Docker images.
   + Is this something that you should be concerned about within your particular company?
+    No, this is disabled by default.

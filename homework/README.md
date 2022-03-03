@@ -19,6 +19,6 @@ Ensure that a seccomp filter is in place that blocks the unshare call (default f
  + Was the security practice or vulnerability you researched particular to Docker, or not?
     This is related to Docker and Kubernetes
   + Was the security practice or vulnerability related to the core docker system itself, the extended environment (e.g. Docker Hub), or Docker images (a.k.a. the software inside the Docker image)? 
-    This effects the core docker system.
+    This effects Docker images.
   + Is this something that you should be concerned about within your particular company?
     No, this is disabled by default.
